@@ -7,6 +7,8 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code 
+    environment:
+      - "DJANGO_SECRET_KEY=django-insecure-+5zuvoh2g@u9+v!dehr2+$$6skl258@q1t^y6rr03*qx!-&+t^u"
   db:
     image: postgres:15
     volumes:
