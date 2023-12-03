@@ -46,13 +46,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    #third party
     'crispy_forms',
     'crispy_bootstrap5',
-    'accounts.apps.AccountsConfig',
-    'pages.apps.PagesConfig',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'debug_toolbar',
+    #local
+    'accounts.apps.AccountsConfig',
+    'pages.apps.PagesConfig',
     'books.apps.BooksConfig',
     
 ]
@@ -98,6 +101,7 @@ if DEBUG:
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -106,9 +110,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "allauth.account.middleware.AccountMiddleware",
+    'allauth.account.middleware.AccountMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     
 ]
+
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 604800
+CACHE_MIDDLEWARE_KEY_PREFIX = ""
 
 ROOT_URLCONF = 'django_project.urls'
 
@@ -198,3 +208,8 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import socket
+
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
