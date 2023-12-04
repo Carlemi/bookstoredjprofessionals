@@ -8,15 +8,9 @@ services:
     volumes:
       - .:/code 
     environment:
-      - "DJANGO_SECRET_KEY=django-insecure-+5zuvoh2g@u9+v!dehr2+$$6skl258@q1t^y6rr03*qx!-&+t^u"
+      - "DJANGO_SECRET_KEY=pHC8vSCUb3stP8gwfwgUfrdBvXBuis3HkAxl_IsWoBGHJDYcWug"
       - "EMAIL_HOST_USER=rogeliofirmino20@gmail.com"
       - "EMAIL_HOST_PASWORD=emilio2404"
-      - "DJANGO_DEBUG=True"
-      - "DJANGO_SECURE_HSTS_SECONDS=0"
-      - "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=False"
-      - "DJANGO_SECURE_HSTS_PRELOAD=False"
-      - "DJANGO_SESSION_COOKIE_SECURE=False"
-      - "DJANGO_CSRF_COOKIE_SECURE=False"
   db:
     image: postgres:15
     volumes:

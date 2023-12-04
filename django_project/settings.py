@@ -28,12 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DJANGO_DEBUG", default=False, cast=bool)
 SECRET_KEY = config("SECRET_KEY")
 
-
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -60,7 +58,7 @@ INSTALLED_APPS = [
     
 ]
 
-SITE_ID = 2
+SITE_ID = 1
 
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
@@ -213,3 +211,10 @@ import socket
 
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
+
+SECURE_HSTS_SECONDS = config("DJANGO_SECURE_HSTS_SECONDS",default=2592000)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = config("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True, cast=bool)
+SECURE_HSTS_PRELOAD = config("DJANGO_SECURE_HSTS_PRELOAD", default=True, cast=bool)
+
+SESSION_COOKIE_SECURE = config("DJANGO_SESSION_COOKIE_SECURE", default=True, cast=bool)
+CSRF_COOKIE_SECURE = config("DJANGO_CSRF_COOKIE_SECURE", default=True, cast=bool)
