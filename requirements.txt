@@ -12,3 +12,6 @@ django-environ
 python-decouple==3.5
 pillow==9.0.1
 django-debug-toolbar==4.2.0
+django-extensions
+werkzeug
+pyOpenSSL
