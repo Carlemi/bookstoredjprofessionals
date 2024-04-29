@@ -4,14 +4,21 @@ services:
     build: .
     ports:
       - "8000:8000"
-    command: python manage.py runserver_plus --cert-file cert.crt 0.0.0.0:8000
+    #command: python manage.py runserver_plus --cert-file cert.crt 0.0.0.0:8000
+    command: gunicorn django_project.wsgi -b 0.0.0.0:8000
     volumes:
       - .:/code 
     environment:
       - "DJANGO_SECRET_KEY=django-insecure-+5zuvoh2g@u9+v!dehr2+$$6skl258@q1t^y6rr03*qx!-&+t^u"
       - "EMAIL_HOST_USER=rogeliofirmino20@gmail.com"
       - "EMAIL_HOST_PASWORD=emilio2404"
-      - "DJANGO_DEBUG=True"
+      - "DJANGO_DEBUG=False"
+      - "DJANGO_SECURE_SSL_REDIRECT=False"
+      - "DJANGO_SECURE_HSTS_SECONDS=0"
+      - "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=False"
+      - "DJANGO_SECURE_HSTS_PRELOAD=False"
+      - "DJANGO_SESSION_COOKIE_SECURE=False" # new
+      - "DJANGO_CSRF_COOKIE_SECURE=False" # new
   db:
     image: postgres:15
     volumes:

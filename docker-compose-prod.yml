@@ -4,7 +4,8 @@ services:
     build: .
     ports:
       - "8000:8000"
-    command: python manage.py runserver_plus --cert-file cert.crt 0.0.0.0:8000
+    #command: python manage.py runserver_plus --cert-file cert.crt 0.0.0.0:8000
+    command: gunicorn django_project.wsgi -b 0.0.0.0:8000
     volumes:
       - .:/code 
     environment:
@@ -18,6 +19,7 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_DB=dj_bookstore
+      
     ports:
       - "5432:5432"
 
